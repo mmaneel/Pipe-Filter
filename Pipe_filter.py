@@ -12,59 +12,71 @@ class Filtre(ABC):
 class FiltreValidation(Filtre):
     """Filtre de validation des données"""
     def traiter(self, donnees):
+        erreurs = []
+
         # Validation de l'ID du compteur
         if not re.match(r'^\d{6}$', donnees['compteur_id']):
-            raise ValueError("ID de compteur invalide")
+            erreurs.append("ID de compteur invalide")
 
         # Validation de l'horodatage
         try:
             datetime.fromisoformat(donnees['timestamp'])
         except ValueError:
-            raise ValueError("Horodatage invalide")
+            erreurs.append("Horodatage invalide")
 
         # Validation de la consommation
         consommation = float(donnees['consommation'].split()[0])
         if consommation < 0 or consommation > 10000:
-            raise ValueError("Valeur de consommation invalide")
+            erreurs.append("Valeur de consommation invalide")
 
         # Validation du type de client
         type_client = donnees['type_client'].lower()
         if type_client not in ['residentiel', 'commercial', 'industriel']:
-            raise ValueError("Type de client invalide")
+            erreurs.append("Type de client invalide")
+
+        # Validation de la wilaya
+        if not donnees['wilaya'].isalpha():
+            erreurs.append("Wilaya invalide")
+
+        # Validation de la ville
+        if not donnees['ville'].isalpha():
+            erreurs.append("Ville invalide")
+
+        # Validation de la localisation (latitude, longitude)
+        localisation_pattern = r'^\d{1,3}\.\d{4,},\d{1,3}\.\d{4,}$'
+        if not re.match(localisation_pattern, donnees['localisation']):
+            erreurs.append("Localisation invalide")
+
+        # Validation de la région
+        if not donnees['region'].isalpha():
+            erreurs.append("Région invalide")
 
         # Validation du code postal
         if not re.match(r'^\d{5}$', donnees['code_postal']):
-            raise ValueError("Code postal invalide")
+            erreurs.append("Code postal invalide")
+
+        # Validation du fournisseur
+        if not all(x.isalnum() or x.isspace() for x in donnees['fournisseur']):
+            erreurs.append("Fournisseur invalide")
+
+        # Validation du tarif
+        try:
+            tarif = float(donnees['tarif'])
+            if tarif <= 0:
+                erreurs.append("Tarif invalide")
+        except ValueError:
+            erreurs.append("Tarif invalide")
 
         # Validation de la puissance souscrite
         puissance_souscrite = float(donnees['puissance_souscrite'].split()[0])
         if puissance_souscrite <= 0:
-            raise ValueError("Puissance souscrite invalide")
+            erreurs.append("Puissance souscrite invalide")
 
-        return donnees
+        # Validation du type de compteur
+        if not all(x.isalnum() or x.isspace() for x in donnees['type_compteur']):
+            erreurs.append("Type de compteur invalide")
 
-class FiltreNormalisation(Filtre):
-    """Filtre de normalisation des données"""
-    def traiter(self, donnees):
-        # Conversion de l'unité de consommation en kWh
-        consommation, unite = donnees['consommation'].split()
-        consommation = float(consommation)
-        if unite == 'Wh':
-            consommation /= 1000
-        donnees['consommation'] = f"{consommation:.5f} kWh"
-
-        # Normalisation du type de client
-        donnees['type_client'] = donnees['type_client'].capitalize()
-
-        return donnees
-
-class FiltreTransformation(Filtre):
-    """Filtre de transformation des données"""
-    def traiter(self, donnees):
-        # Calcul de la consommation horaire
-        consommation = float(donnees['consommation'].split()[0])
-        # ... Autres transformations si nécessaire
-        return donnees
+        return erreurs
 
 class Pipeline:
     """Pipeline de filtres"""
@@ -72,13 +84,16 @@ class Pipeline:
         self.filtres = filtres
 
     def traiter(self, donnees):
+        erreurs = []
         for filtre in self.filtres:
-            donnees = filtre.traiter(donnees)
-        return donnees
+            result = filtre.traiter(donnees)
+            if isinstance(result, list):  # Si le résultat est une liste d'erreurs
+                erreurs.extend(result)  # Ajouter les erreurs à la liste
+        return erreurs
 
 # Exemple d'utilisation
 donnees_brutes = {
-    'compteur_id': '123456',
+    'compteur_id': '123456d',
     'timestamp': '2023-05-24 08:00:00',
     'consommation': '1.234 kWh',
     'type_client': 'Residentiel',
@@ -95,9 +110,12 @@ donnees_brutes = {
 
 pipeline = Pipeline([
     FiltreValidation(),
-    FiltreNormalisation(),
-    FiltreTransformation()
 ])
 
-donnees_traitees = pipeline.traiter(donnees_brutes)
-print(donnees_traitees)
+erreurs = pipeline.traiter(donnees_brutes)
+if erreurs:
+    print("Erreurs de validation:")
+    for erreur in erreurs:
+        print("-", erreur)
+else:
+    print("Aucune erreur de validation détectée.")
