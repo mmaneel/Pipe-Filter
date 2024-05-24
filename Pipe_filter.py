@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 import re
-
+import pandas as pd
+import numpy as np
 
 class Filtre(ABC):
     """Interface de base pour les filtres"""
@@ -155,12 +156,46 @@ class Pipeline:
             if filtre.__class__.__name__ == "FiltreValidation":
                 result = filtre.traiter(donnees)
                 if isinstance(result, list):  # Si le résultat est une liste d'erreurs
-                    erreurs.extend(result)
-                    for erreur in erreurs:
-                        print("-", erreur)
-                    return None
+                    if result == [] : 
+                        pass 
+                    else : 
+                        erreurs.extend(result)
+                        for erreur in erreurs:
+                            print("-", erreur)
+                        return None
             else:
                 donnees= filtre.traiter(donnees)
         return donnees
     
         
+
+
+# # Lire les données CSV
+# df = pd.read_csv('Pipe-Filter/dataset_consommation_energie_algerie.csv')
+
+# # Convertir le DataFrame en une liste de dictionnaires
+# donnees_brutes = df.to_dict(orient='records')
+
+# # Diviser les données en deux parties de taille égale
+# donnees_parts = np.array_split(donnees_brutes, 2)
+# donnees_part1, donnees_part2 = donnees_parts
+
+# # Créer deux instances du pipeline
+# pipeline1 = Pipeline([FiltreValidation(), FiltreNormalisation(), FiltreTransformation()])
+# pipeline2 = Pipeline([FiltreValidation(), FiltreNormalisation(), FiltreTransformation()])
+
+# # Traiter chaque partie des données brutes avec un pipeline distinct
+# donnees_traitees_part1 = [pipeline1.traiter(donnees) for donnees in donnees_part1]
+# donnees_traitees_part2 = [pipeline2.traiter(donnees) for donnees in donnees_part2]
+
+# # Combiner les deux parties traitées
+# donnees_traitees = donnees_traitees_part1 + donnees_traitees_part2
+
+# # Filtrer les résultats pour enlever les entrées traitées sans erreurs (None)
+# donnees_traitees = [donnees for donnees in donnees_traitees if donnees is not None]
+
+# # Convertir les données traitées en DataFrame
+# df_traite = pd.DataFrame(donnees_traitees)
+
+# # Sauvegarder le DataFrame traité en CSV
+# df_traite.to_csv('Pipe-Filter/dataset_consommation_energie_algerie_traite.csv', index=False)
