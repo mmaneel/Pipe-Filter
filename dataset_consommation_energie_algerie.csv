@@ -1,0 +1,114 @@
+compteur_id,timestamp,consommation,type_client,wilaya,ville,localisation,region,code_postal,fournisseur,tarif,puissance_souscrite,type_compteur
+789012,2024-05-24 02:39:56,3.865 kWh,Industriel,Alger,El Harrach,"36.7146,3.1319",Est,16200,Power Algeria,0.14,12 kW,Smart Meter Gen 1
+123456,2024-05-24 02:54:56,77.475 kWh,Residentiel,Oran,Bir El Djir,"35.7106,-0.5625",Sud,31130,Sonelgaz,0.16,9 kW,Smart Meter Gen 3
+654321,2024-05-24 03:09:56,11.874 kWh,Industriel,Alger,Bab Ezzouar,"36.7268,3.1829",Ouest,16024,Sonelgaz,0.14,3 kW,Smart Meter Gen 3
+123456,2024-05-24 03:24:56,55.856 kWh,Commercial,Biskra,M’Chouneche,"34.9639,6.0822",Nord,75008,Energy Plus,0.16,3 kW,Smart Meter Gen 1
+789012,2024-05-24 03:39:56,44.402 kWh,Residentiel,Oran,Bir El Djir,"35.7106,-0.5625",Nord,31130,Sonelgaz,0.14,15 kW,Smart Meter Gen 1
+654321,2024-05-24 03:54:56,42.142 kWh,Residentiel,Alger,El Harrach,"36.7146,3.1319",Sud,16200,Sonelgaz,0.14,3 kW,Smart Meter Gen 1
+123456,2024-05-24 04:09:56,62.339 kWh,Residentiel,Oran,Aïn Turk,"35.7435,-0.7695",Sud,31300,Power Algeria,0.14,9 kW,Smart Meter Gen 1
+789012,2024-05-24 04:24:56,25.304 kWh,Industriel,Biskra,Sidi Khaled,"34.4264,4.9431",Ouest,75300,Sonelgaz,0.14,15 kW,Smart Meter Gen 2
+345678,2024-05-24 04:39:56,52.926 kWh,Industriel,Biskra,M’Chouneche,"34.9639,6.0822",Nord,75008,Power Algeria,0.12,6 kW,Smart Meter Gen 2
+345678,2024-05-24 04:54:56,26.644 kWh,Commercial,Oran,Es Sénia,"35.6475,-0.6231",Nord,31100,Sonelgaz,0.16,3 kW,Smart Meter Gen 1
+123456,2024-05-24 05:09:56,56.339 kWh,Residentiel,Biskra,M’Chouneche,"34.9639,6.0822",Ouest,75008,Sonelgaz,0.16,3 kW,Smart Meter Gen 2
+987654,2024-05-24 05:24:56,56.619 kWh,Commercial,Oran,Aïn Turk,"35.7435,-0.7695",Nord,31300,Energy Plus,0.16,3 kW,Smart Meter Gen 3
+789012,2024-05-24 05:39:56,13.81 kWh,Industriel,Oran,Bir El Djir,"35.7106,-0.5625",Est,31130,Power Algeria,0.16,12 kW,Smart Meter Gen 3
+789012,2024-05-24 05:54:56,37.398 kWh,Industriel,Alger,Oued Smar,"36.7,3.1833",Ouest,16270,Sonelgaz,0.16,6 kW,Smart Meter Gen 1
+987654,2024-05-24 06:09:56,54.361 kWh,Residentiel,Alger,Oued Smar,"36.7,3.1833",Ouest,16270,Energy Plus,0.12,9 kW,Smart Meter Gen 2
+999999,2024-05-24 06:24:56,500 Wh,residentiel,alger,alger,"36.7538,3.0588",Nord,16000,Énergie Plus ,0.12,5 kW,Smart Meter Gen 3
+345678,2024-05-24 06:24:56,14.957 kWh,Residentiel,Alger,Oued Smar,"36.7,3.1833",Sud,16270,Energy Plus,0.14,6 kW,Smart Meter Gen 2
+654321,2024-05-24 06:39:56,19.388 kWh,Industriel,Biskra,El Hadjeb,"34.8511,5.7416",Ouest,75006,Power Algeria,0.14,9 kW,Smart Meter Gen 3
+123456,2024-05-24 06:54:56,17.935 kWh,Industriel,Oran,Es Sénia,"35.6475,-0.6231",Centre,31100,Sonelgaz,0.16,3 kW,Smart Meter Gen 1
+654321,2024-05-24 07:09:56,88.967 kWh,Residentiel,Biskra,M’Chouneche,"34.9639,6.0822",Sud,75008,Sonelgaz,0.16,12 kW,Smart Meter Gen 2
+999999,2024-05-24 07:24:56,500 Wh,residentiel,alger,alger,"36.7538,3.0588",Nord,16000,Énergie Plus ,0.12,5 kW,Smart Meter Gen 3
+654321,2024-05-24 07:24:56,7.497 kWh,Commercial,Oran,Aïn Turk,"35.7435,-0.7695",Centre,31300,Sonelgaz,0.12,9 kW,Smart Meter Gen 2
+999999,2024-05-24 07:39:56,500 Wh,residentiel,alger,alger,"36.7538,3.0588",Nord,16000,Énergie Plus ,0.12,5 kW,Smart Meter Gen 3
+123456,2024-05-24 07:39:56,67.795 kWh,Industriel,Biskra,El Hadjeb,"34.8511,5.7416",Nord,75006,Power Algeria,0.12,6 kW,Smart Meter Gen 1
+987654,2024-05-24 07:54:56,83.447 kWh,Commercial,Biskra,El Hadjeb,"34.8511,5.7416",Sud,75006,Power Algeria,0.14,3 kW,Smart Meter Gen 3
+654321,2024-05-24 08:09:56,2.9 kWh,Industriel,Alger,El Harrach,"36.7146,3.1319",Nord,16200,Power Algeria,0.14,15 kW,Smart Meter Gen 2
+987654,2024-05-24 08:24:56,87.16 kWh,Industriel,Oran,Aïn Turk,"35.7435,-0.7695",Nord,31300,Energy Plus,0.12,3 kW,Smart Meter Gen 1
+123456,2024-05-24 08:39:56,35.177 kWh,Industriel,Alger,El Harrach,"36.7146,3.1319",Centre,16200,Sonelgaz,0.14,12 kW,Smart Meter Gen 1
+987654,2024-05-24 08:54:56,52.199 kWh,Industriel,Biskra,Sidi Khaled,"34.4264,4.9431",Sud,75300,Power Algeria,0.16,3 kW,Smart Meter Gen 3
+345678,2024-05-24 09:09:56,28.281 kWh,Residentiel,Oran,Aïn Turk,"35.7435,-0.7695",Ouest,31300,Sonelgaz,0.14,12 kW,Smart Meter Gen 1
+654321,2024-05-24 09:24:56,88.086 kWh,Residentiel,Oran,Bir El Djir,"35.7106,-0.5625",Est,31130,Power Algeria,0.12,15 kW,Smart Meter Gen 3
+654321,2024-05-24 09:39:56,26.119 kWh,Residentiel,Oran,Aïn Turk,"35.7435,-0.7695",Centre,31300,Sonelgaz,0.16,6 kW,Smart Meter Gen 1
+987654,2024-05-24 09:54:56,47.84 kWh,Commercial,Biskra,El Hadjeb,"34.8511,5.7416",Nord,75006,Power Algeria,0.12,12 kW,Smart Meter Gen 2
+999999,2024-05-24 10:09:56,500 Wh,residentiel,alger,alger,"36.7538,3.0588",Nord,16000,Énergie Plus ,0.12,5 kW,Smart Meter Gen 3
+654321,2024-05-24 10:09:56,14.263 kWh,Industriel,Biskra,Sidi Khaled,"34.4264,4.9431",Centre,75300,Energy Plus,0.12,6 kW,Smart Meter Gen 1
+654321,2024-05-24 10:24:56,72.241 kWh,Industriel,Biskra,El Hadjeb,"34.8511,5.7416",Sud,75006,Sonelgaz,0.14,9 kW,Smart Meter Gen 1
+123456,2024-05-24 10:39:56,2.309 kWh,Industriel,Oran,Es Sénia,"35.6475,-0.6231",Ouest,31100,Power Algeria,0.14,6 kW,Smart Meter Gen 1
+345678,2024-05-24 10:54:56,84.017 kWh,Residentiel,Alger,Oued Smar,"36.7,3.1833",Sud,16270,Sonelgaz,0.16,9 kW,Smart Meter Gen 1
+999999,2024-05-24 11:09:56,500 Wh,residentiel,alger,alger,"36.7538,3.0588",Nord,16000,Énergie Plus ,0.12,5 kW,Smart Meter Gen 3
+987654,2024-05-24 11:09:56,36.436 kWh,Industriel,Biskra,M’Chouneche,"34.9639,6.0822",Centre,75008,Energy Plus,0.14,12 kW,Smart Meter Gen 3
+345678,2024-05-24 11:24:56,71.509 kWh,Residentiel,Oran,Es Sénia,"35.6475,-0.6231",Ouest,31100,Power Algeria,0.16,12 kW,Smart Meter Gen 2
+123456,2024-05-24 11:39:56,52.623 kWh,Industriel,Biskra,El Hadjeb,"34.8511,5.7416",Nord,75006,Power Algeria,0.12,3 kW,Smart Meter Gen 1
+123456,2024-05-24 11:54:56,0.441 kWh,Residentiel,Biskra,El Hadjeb,"34.8511,5.7416",Sud,75006,Sonelgaz,0.16,9 kW,Smart Meter Gen 2
+999999,2024-05-24 12:09:56,500 Wh,residentiel,alger,alger,"36.7538,3.0588",Nord,16000,Énergie Plus ,0.12,5 kW,Smart Meter Gen 3
+123456,2024-05-24 12:09:56,53.11 kWh,Commercial,Biskra,Sidi Khaled,"34.4264,4.9431",Est,75300,Energy Plus,0.12,12 kW,Smart Meter Gen 1
+999999,2024-05-24 12:24:56,500 Wh,residentiel,alger,alger,"36.7538,3.0588",Nord,16000,Énergie Plus ,0.12,5 kW,Smart Meter Gen 3
+654321,2024-05-24 12:24:56,59.587 kWh,Industriel,Alger,Oued Smar,"36.7,3.1833",Ouest,16270,Energy Plus,0.16,9 kW,Smart Meter Gen 2
+345678,2024-05-24 12:39:56,72.127 kWh,Commercial,Biskra,M’Chouneche,"34.9639,6.0822",Nord,75008,Energy Plus,0.16,9 kW,Smart Meter Gen 1
+987654,2024-05-24 12:54:56,56.155 kWh,Commercial,Biskra,M’Chouneche,"34.9639,6.0822",Centre,75008,Energy Plus,0.12,3 kW,Smart Meter Gen 2
+345678,2024-05-24 13:09:56,10.706 kWh,Commercial,Biskra,El Hadjeb,"34.8511,5.7416",Sud,75006,Sonelgaz,0.12,15 kW,Smart Meter Gen 2
+345678,2024-05-24 13:24:56,30.784 kWh,Commercial,Oran,Aïn Turk,"35.7435,-0.7695",Sud,31300,Energy Plus,0.12,15 kW,Smart Meter Gen 2
+123456,2024-05-24 13:39:56,28.846 kWh,Residentiel,Oran,Bir El Djir,"35.7106,-0.5625",Nord,31130,Energy Plus,0.14,15 kW,Smart Meter Gen 2
+654321,2024-05-24 13:54:56,23.961 kWh,Industriel,Alger,Bab Ezzouar,"36.7268,3.1829",Nord,16024,Power Algeria,0.14,6 kW,Smart Meter Gen 3
+789012,2024-05-24 14:09:56,87.143 kWh,Residentiel,Biskra,El Hadjeb,"34.8511,5.7416",Centre,75006,Power Algeria,0.16,3 kW,Smart Meter Gen 1
+123456,2024-05-24 14:24:56,41.08 kWh,Residentiel,Alger,Oued Smar,"36.7,3.1833",Est,16270,Sonelgaz,0.16,9 kW,Smart Meter Gen 2
+987654,2024-05-24 14:39:56,4.289 kWh,Commercial,Alger,Oued Smar,"36.7,3.1833",Centre,16270,Power Algeria,0.12,15 kW,Smart Meter Gen 2
+345678,2024-05-24 14:54:56,9.718 kWh,Residentiel,Alger,El Harrach,"36.7146,3.1319",Centre,16200,Power Algeria,0.12,6 kW,Smart Meter Gen 1
+654321,2024-05-24 15:09:56,57.974 kWh,Industriel,Alger,Oued Smar,"36.7,3.1833",Nord,16270,Power Algeria,0.16,9 kW,Smart Meter Gen 1
+999999,2024-05-24 15:24:56,500 Wh,residentiel,alger,alger,"36.7538,3.0588",Nord,16000,Énergie Plus ,0.12,5 kW,Smart Meter Gen 3
+654321,2024-05-24 15:24:56,42.086 kWh,Industriel,Biskra,El Hadjeb,"34.8511,5.7416",Nord,75006,Sonelgaz,0.12,15 kW,Smart Meter Gen 1
+654321,2024-05-24 15:39:56,9.139 kWh,Commercial,Alger,Bab Ezzouar,"36.7268,3.1829",Nord,16024,Energy Plus,0.14,9 kW,Smart Meter Gen 1
+654321,2024-05-24 15:54:56,32.215 kWh,Industriel,Oran,Es Sénia,"35.6475,-0.6231",Centre,31100,Sonelgaz,0.16,3 kW,Smart Meter Gen 1
+789012,2024-05-24 16:09:56,94.209 kWh,Commercial,Alger,Bab Ezzouar,"36.7268,3.1829",Est,16024,Energy Plus,0.12,3 kW,Smart Meter Gen 1
+123456,2024-05-24 16:24:56,34.734 kWh,Commercial,Alger,El Harrach,"36.7146,3.1319",Sud,16200,Sonelgaz,0.16,3 kW,Smart Meter Gen 1
+789012,2024-05-24 16:39:56,90.596 kWh,Industriel,Biskra,El Hadjeb,"34.8511,5.7416",Centre,75006,Energy Plus,0.12,3 kW,Smart Meter Gen 2
+654321,2024-05-24 16:54:56,96.28 kWh,Residentiel,Biskra,M’Chouneche,"34.9639,6.0822",Ouest,75008,Sonelgaz,0.16,15 kW,Smart Meter Gen 2
+123456,2024-05-24 17:09:56,97.944 kWh,Residentiel,Biskra,Sidi Khaled,"34.4264,4.9431",Centre,75300,Energy Plus,0.12,6 kW,Smart Meter Gen 3
+789012,2024-05-24 17:24:56,92.351 kWh,Commercial,Biskra,Sidi Khaled,"34.4264,4.9431",Sud,75300,Power Algeria,0.16,9 kW,Smart Meter Gen 2
+987654,2024-05-24 17:39:56,74.021 kWh,Residentiel,Biskra,El Hadjeb,"34.8511,5.7416",Ouest,75006,Energy Plus,0.12,6 kW,Smart Meter Gen 2
+654321,2024-05-24 17:54:56,20.773 kWh,Industriel,Biskra,M’Chouneche,"34.9639,6.0822",Ouest,75008,Sonelgaz,0.16,12 kW,Smart Meter Gen 2
+789012,2024-05-24 18:09:56,95.374 kWh,Industriel,Oran,Aïn Turk,"35.7435,-0.7695",Centre,31300,Power Algeria,0.14,12 kW,Smart Meter Gen 2
+789012,2024-05-24 18:24:56,96.981 kWh,Commercial,Biskra,Sidi Khaled,"34.4264,4.9431",Nord,75300,Power Algeria,0.12,6 kW,Smart Meter Gen 2
+789012,2024-05-24 18:39:56,95.043 kWh,Industriel,Oran,Bir El Djir,"35.7106,-0.5625",Nord,31130,Sonelgaz,0.14,9 kW,Smart Meter Gen 2
+789012,2024-05-24 18:54:56,20.826 kWh,Commercial,Biskra,M’Chouneche,"34.9639,6.0822",Est,75008,Energy Plus,0.12,12 kW,Smart Meter Gen 3
+789012,2024-05-24 19:09:56,57.54 kWh,Residentiel,Alger,El Harrach,"36.7146,3.1319",Nord,16200,Sonelgaz,0.12,15 kW,Smart Meter Gen 3
+987654,2024-05-24 19:24:56,67.372 kWh,Industriel,Biskra,El Hadjeb,"34.8511,5.7416",Est,75006,Sonelgaz,0.12,9 kW,Smart Meter Gen 3
+123456,2024-05-24 19:39:56,25.591 kWh,Industriel,Oran,Bir El Djir,"35.7106,-0.5625",Est,31130,Sonelgaz,0.16,3 kW,Smart Meter Gen 2
+987654,2024-05-24 19:54:56,55.059 kWh,Industriel,Alger,Oued Smar,"36.7,3.1833",Est,16270,Power Algeria,0.12,15 kW,Smart Meter Gen 3
+123456,2024-05-24 20:09:56,36.949 kWh,Residentiel,Oran,Aïn Turk,"35.7435,-0.7695",Centre,31300,Sonelgaz,0.12,9 kW,Smart Meter Gen 1
+789012,2024-05-24 20:24:56,76.005 kWh,Industriel,Oran,Aïn Turk,"35.7435,-0.7695",Centre,31300,Sonelgaz,0.12,12 kW,Smart Meter Gen 1
+123456,2024-05-24 20:39:56,96.028 kWh,Commercial,Alger,Bab Ezzouar,"36.7268,3.1829",Ouest,16024,Power Algeria,0.12,6 kW,Smart Meter Gen 1
+999999,2024-05-24 20:54:56,500 Wh,residentiel,alger,alger,"36.7538,3.0588",Nord,16000,Énergie Plus ,0.12,5 kW,Smart Meter Gen 3
+123456,2024-05-24 20:54:56,44.225 kWh,Residentiel,Biskra,Sidi Khaled,"34.4264,4.9431",Ouest,75300,Energy Plus,0.12,9 kW,Smart Meter Gen 1
+987654,2024-05-24 21:09:56,71.784 kWh,Residentiel,Alger,Oued Smar,"36.7,3.1833",Est,16270,Power Algeria,0.12,6 kW,Smart Meter Gen 1
+654321,2024-05-24 21:24:56,7.593 kWh,Industriel,Biskra,Sidi Khaled,"34.4264,4.9431",Ouest,75300,Energy Plus,0.16,12 kW,Smart Meter Gen 3
+345678,2024-05-24 21:39:56,33.178 kWh,Residentiel,Oran,Es Sénia,"35.6475,-0.6231",Sud,31100,Power Algeria,0.16,6 kW,Smart Meter Gen 2
+123456,2024-05-24 21:54:56,60.566 kWh,Residentiel,Alger,Bab Ezzouar,"36.7268,3.1829",Sud,16024,Energy Plus,0.14,6 kW,Smart Meter Gen 3
+345678,2024-05-24 22:09:56,72.777 kWh,Commercial,Oran,Es Sénia,"35.6475,-0.6231",Centre,31100,Energy Plus,0.14,9 kW,Smart Meter Gen 1
+123456,2024-05-24 22:24:56,62.964 kWh,Residentiel,Biskra,M’Chouneche,"34.9639,6.0822",Nord,75008,Power Algeria,0.16,15 kW,Smart Meter Gen 3
+123456,2024-05-24 22:39:56,94.356 kWh,Industriel,Biskra,M’Chouneche,"34.9639,6.0822",Ouest,75008,Power Algeria,0.12,15 kW,Smart Meter Gen 3
+987654,2024-05-24 22:54:56,58.816 kWh,Industriel,Oran,Bir El Djir,"35.7106,-0.5625",Ouest,31130,Power Algeria,0.14,12 kW,Smart Meter Gen 2
+789012,2024-05-24 23:09:56,30.179 kWh,Industriel,Oran,Es Sénia,"35.6475,-0.6231",Ouest,31100,Power Algeria,0.16,3 kW,Smart Meter Gen 1
+789012,2024-05-24 23:24:56,97.761 kWh,Residentiel,Alger,Bab Ezzouar,"36.7268,3.1829",Ouest,16024,Energy Plus,0.14,9 kW,Smart Meter Gen 1
+999999,2024-05-24 23:39:56,500 Wh,residentiel,alger,alger,"36.7538,3.0588",Nord,16000,Énergie Plus ,0.12,5 kW,Smart Meter Gen 3
+987654,2024-05-24 23:39:56,50.54 kWh,Industriel,Alger,Oued Smar,"36.7,3.1833",Sud,16270,Energy Plus,0.12,3 kW,Smart Meter Gen 3
+999999,2024-05-24 23:54:56,500 Wh,residentiel,alger,alger,"36.7538,3.0588",Nord,16000,Énergie Plus ,0.12,5 kW,Smart Meter Gen 3
+345678,2024-05-24 23:54:56,49.268 kWh,Commercial,Alger,El Harrach,"36.7146,3.1319",Ouest,16200,Energy Plus,0.12,3 kW,Smart Meter Gen 1
+123456,2024-05-25 00:09:56,0.541 kWh,Residentiel,Biskra,M’Chouneche,"34.9639,6.0822",Centre,75008,Power Algeria,0.14,12 kW,Smart Meter Gen 2
+654321,2024-05-25 00:24:56,25.919 kWh,Residentiel,Alger,Bab Ezzouar,"36.7268,3.1829",Est,16024,Energy Plus,0.12,12 kW,Smart Meter Gen 1
+987654,2024-05-25 00:39:56,40.466 kWh,Industriel,Oran,Es Sénia,"35.6475,-0.6231",Centre,31100,Energy Plus,0.12,15 kW,Smart Meter Gen 1
+345678,2024-05-25 00:54:56,51.882 kWh,Commercial,Oran,Bir El Djir,"35.7106,-0.5625",Nord,31130,Power Algeria,0.12,9 kW,Smart Meter Gen 3
+987654,2024-05-25 01:09:56,81.238 kWh,Industriel,Biskra,El Hadjeb,"34.8511,5.7416",Sud,75006,Sonelgaz,0.16,6 kW,Smart Meter Gen 1
+123456,2024-05-25 01:24:56,48.563 kWh,Industriel,Biskra,M’Chouneche,"34.9639,6.0822",Sud,75008,Sonelgaz,0.16,6 kW,Smart Meter Gen 2
+654321,2024-05-25 01:39:56,20.085 kWh,Residentiel,Alger,Oued Smar,"36.7,3.1833",Est,16270,Energy Plus,0.12,6 kW,Smart Meter Gen 1
+999999,2024-05-25 01:54:56,500 Wh,residentiel,alger,alger,"36.7538,3.0588",Nord,16000,Énergie Plus ,0.12,5 kW,Smart Meter Gen 3
+789012,2024-05-25 01:54:56,50.192 kWh,Industriel,Alger,Oued Smar,"36.7,3.1833",Centre,16270,Power Algeria,0.16,6 kW,Smart Meter Gen 3
+345678,2024-05-25 02:09:56,21.99 kWh,Industriel,Alger,Bab Ezzouar,"36.7268,3.1829",Centre,16024,Energy Plus,0.12,15 kW,Smart Meter Gen 3
+999999,2024-05-25 02:24:56,500 Wh,residentiel,alger,alger,"36.7538,3.0588",Nord,16000,Énergie Plus ,0.12,5 kW,Smart Meter Gen 3
+789012,2024-05-25 02:24:56,62.607 kWh,Commercial,Alger,Oued Smar,"36.7,3.1833",Ouest,16270,Sonelgaz,0.12,9 kW,Smart Meter Gen 2
+345678,2024-05-25 02:39:56,84.461 kWh,Commercial,Oran,Bir El Djir,"35.7106,-0.5625",Est,31130,Sonelgaz,0.14,3 kW,Smart Meter Gen 1
+789012,2024-05-25 02:54:56,92.639 kWh,Industriel,Alger,Oued Smar,"36.7,3.1833",Nord,16270,Sonelgaz,0.12,6 kW,Smart Meter Gen 3
+987654,2024-05-25 03:09:56,56.318 kWh,Industriel,Alger,Bab Ezzouar,"36.7268,3.1829",Est,16024,Energy Plus,0.16,9 kW,Smart Meter Gen 1
+345678,2024-05-25 03:24:56,59.949 kWh,Commercial,Biskra,El Hadjeb,"34.8511,5.7416",Nord,75006,Energy Plus,0.14,6 kW,Smart Meter Gen 2

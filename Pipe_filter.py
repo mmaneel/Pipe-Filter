@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 import re
+import pandas as pd
 
 class Filtre(ABC):
     """Interface de base pour les filtres"""
@@ -13,7 +14,7 @@ class FiltreValidation(Filtre):
     """Filtre de validation des données"""
     def traiter(self, donnees):
         # Validation de l'ID du compteur
-        if not re.match(r'^\d{6}$', donnees['compteur_id']):
+        if not re.match(r'^\d{6}$', str(donnees['compteur_id'])):
             raise ValueError("ID de compteur invalide")
 
         # Validation de l'horodatage
@@ -33,7 +34,7 @@ class FiltreValidation(Filtre):
             raise ValueError("Type de client invalide")
 
         # Validation du code postal
-        if not re.match(r'^\d{5}$', donnees['code_postal']):
+        if not re.match(r'^\d{5}$', str(donnees['code_postal'])):
             raise ValueError("Code postal invalide")
 
         # Validation de la puissance souscrite
@@ -56,14 +57,54 @@ class FiltreNormalisation(Filtre):
         # Normalisation du type de client
         donnees['type_client'] = donnees['type_client'].capitalize()
 
+        # Normalisation de la wilaya et de la ville
+        donnees['wilaya'] = donnees['wilaya'].upper()
+        donnees['ville'] = donnees['ville'].upper()
+
+        # Normalisation du fournisseur
+        donnees['fournisseur'] = donnees['fournisseur'].replace(' ', '_').upper()
+
+        # Conversion de la puissance souscrite en float
+        puissance_souscrite = float(donnees['puissance_souscrite'].split()[0])
+        donnees['puissance_souscrite'] = puissance_souscrite
+
+        # Conversion du code postal en int
+        donnees['code_postal'] = int(donnees['code_postal'])
+
+        # Conversion du tarif en float
+        donnees['tarif'] = float(donnees['tarif'])
+
         return donnees
+
+
+"""
+Puisque les données sont reçues 3 fois par jour, 
+il serait plus pertinent de calculer la consommation quotidienne en multipliant la consommation par 8 
+(8 heures entre chaque lecture) au lieu de 24. 
+"""
+
 
 class FiltreTransformation(Filtre):
     """Filtre de transformation des données"""
     def traiter(self, donnees):
-        # Calcul de la consommation horaire
-        consommation = float(donnees['consommation'].split()[0])
-        # ... Autres transformations si nécessaire
+        # Calcul de la consommation pour 8 heures
+        consommation_kwh = float(donnees['consommation'].split()[0])
+        consommation_8h = consommation_kwh * 8
+        donnees['consommation_8h'] = f"{consommation_8h:.5f} kWh"
+
+        # Catégorisation des clients selon la consommation
+        if consommation_kwh < 1.67:
+            donnees['categorie_client'] = 'Faible consommation'
+        elif consommation_kwh < 6.67:
+            donnees['categorie_client'] = 'Consommation moyenne'
+        else:
+            donnees['categorie_client'] = 'Forte consommation'
+
+        # Ajout du ratio consommation/puissance souscrite
+        puissance_souscrite = donnees['puissance_souscrite']
+        ratio = consommation_kwh / puissance_souscrite
+        donnees['ratio_consommation'] = ratio
+
         return donnees
 
 class Pipeline:
@@ -76,28 +117,25 @@ class Pipeline:
             donnees = filtre.traiter(donnees)
         return donnees
 
-# Exemple d'utilisation
-donnees_brutes = {
-    'compteur_id': '123456',
-    'timestamp': '2023-05-24 08:00:00',
-    'consommation': '1.234 kWh',
-    'type_client': 'Residentiel',
-    'wilaya': 'Alger',
-    'ville': 'Alger',
-    'localisation': '36.7538,3.0588',
-    'region': 'Nord',
-    'code_postal': '16000',
-    'fournisseur': 'Énergie Plus',
-    'tarif': '0.12',
-    'puissance_souscrite': '5 kW',
-    'type_compteur': 'Smart Meter Gen 3'
-}
 
+# Lire les données CSV
+df = pd.read_csv('Pipe-Filter/dataset_consommation_energie_algerie.csv')
+
+# Convertir le DataFrame en une liste de dictionnaires
+donnees_brutes = df.to_dict(orient='records')
+
+# Créer une instance du pipeline
 pipeline = Pipeline([
     FiltreValidation(),
     FiltreNormalisation(),
     FiltreTransformation()
 ])
 
-donnees_traitees = pipeline.traiter(donnees_brutes)
-print(donnees_traitees)
+# Traiter chaque donnée brute
+donnees_traitees = [pipeline.traiter(donnees) for donnees in donnees_brutes]
+
+# Convertir les données traitées en DataFrame
+df_traite = pd.DataFrame(donnees_traitees)
+
+# Sauvegarder le DataFrame traité en CSV
+df_traite.to_csv('Pipe-Filter/dataset_consommation_energie_algerie_traite.csv', index=False)
