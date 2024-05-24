@@ -93,7 +93,7 @@ class Pipeline:
 
 # Exemple d'utilisation
 donnees_brutes = {
-    'compteur_id': '123456d',
+    'compteur_id': '123456',
     'timestamp': '2023-05-24 08:00:00',
     'consommation': '1.234 kWh',
     'type_client': 'Residentiel',

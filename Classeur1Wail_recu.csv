@@ -1,0 +1,28 @@
+Categorie,Localisation,Adresse,Surface,Prix,Text
+"1    Offres > Vente > Surfaces
+Name: 2, dtype: object","1    Algerie > Béjaia > Béjaia > Béjaia
+Name: 4, dtype: object",,"1    950 m²
+Name: 6, dtype: object","1    62 000 000 Dinar Algèrien (DA)
+Name: 8, dtype: object","1    vends ou echange avec villa ou appartements a ...
+Name: 10, dtype: object"
+"1    Offres > Vente > Appart. 3 pièces
+Name: 2, dtype: object","1    Algerie > Béjaia > Béjaia > Béjaia
+Name: 4, dtype: object","1    hauteur ihaddaden bejaia
+Name: 6, dtype: object","1    80 m²
+Name: 8, dtype: object","1    70 000 000 Dinar Algèrien (DA)
+Name: 10, dtype: object","1    vends 02 apparts f3 au 1 er et 2 eme etage ave...
+Name: 12, dtype: object"
+"1    Offres > Vente > Appart. 1 pièce
+Name: 2, dtype: object","1    Algerie > Béjaia > Béjaia > Béjaia
+Name: 4, dtype: object",,"1    80 m²
+Name: 6, dtype: object","1    72 000 000 Dinar Algèrien (DA)
+Name: 8, dtype: object","1    echange avec appart au centre d alger 02 f.3 f...
+Name: 10, dtype: object"
+"1    Offres > Vente > Appart. 3 pièces
+Name: 2, dtype: object","1    Algerie > Béjaia > Béjaia > Toudja
+Name: 4, dtype: object","1    assoumert tighremt
+Name: 6, dtype: object","1    75 m²
+Name: 8, dtype: object","1    2 000 000 Dinar Algèrien (DA)
+Name: 10, dtype: object","1    cede 06 appart dans un bloc de r+2 avec balcon...
+Name: 12, dtype: object"
+"1
