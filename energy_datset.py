@@ -19,7 +19,7 @@ localisations = [
     {'wilaya': 'Biskra', 'villes': [
         {'ville': 'El Hadjeb', 'coord': (34.8511, 5.7416), 'code_postal': 75006},
         {'ville': 'Sidi Khaled', 'coord': (34.4264, 4.9431), 'code_postal': 75300},
-        {'ville': 'M’Chouneche', 'coord': (34.9639, 6.0822), 'code_postal': 75008}
+        {'ville': 'M"Chouneche', 'coord': (34.9639, 6.0822), 'code_postal': 75008}
     ]},
     # Ajouter d'autres wilayas et villes si nécessaire
 ]

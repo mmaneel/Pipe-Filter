@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 import re
-import pandas as pd
+
 
 class Filtre(ABC):
     """Interface de base pour les filtres"""
@@ -10,39 +10,76 @@ class Filtre(ABC):
         """Méthode à implémenter pour traiter les données"""
         pass
 
+
+
 class FiltreValidation(Filtre):
     """Filtre de validation des données"""
     def traiter(self, donnees):
+        erreurs = []
+
         # Validation de l'ID du compteur
         if not re.match(r'^\d{6}$', str(donnees['compteur_id'])):
-            raise ValueError("ID de compteur invalide")
+            erreurs.append("ID de compteur invalide")
 
         # Validation de l'horodatage
         try:
             datetime.fromisoformat(donnees['timestamp'])
         except ValueError:
-            raise ValueError("Horodatage invalide")
+            erreurs.append("Horodatage invalide")
 
         # Validation de la consommation
         consommation = float(donnees['consommation'].split()[0])
         if consommation < 0 or consommation > 10000:
-            raise ValueError("Valeur de consommation invalide")
+            erreurs.append("Valeur de consommation invalide")
 
         # Validation du type de client
         type_client = donnees['type_client'].lower()
         if type_client not in ['residentiel', 'commercial', 'industriel']:
-            raise ValueError("Type de client invalide")
+            erreurs.append("Type de client invalide")
+
+        # Validation de la wilaya
+        if not donnees['wilaya'].isalpha():
+            erreurs.append("Wilaya invalide")
+
+        # Validation de la ville
+        if not all(x.isalpha() or x.isspace() or x in ['"', "'"] for x in donnees['ville']):
+            erreurs.append("Ville invalide")
+
+        # Validation de la localisation (latitude, longitude)
+        localisation_pattern = r'^-?\d+\.\d+,-?\d+\.\d+$'
+        if not re.match(localisation_pattern, donnees['localisation']):
+            erreurs.append("Localisation invalide")
+
+        # Validation de la région
+        if not donnees['region'].isalpha():
+            erreurs.append("Région invalide")
 
         # Validation du code postal
         if not re.match(r'^\d{5}$', str(donnees['code_postal'])):
-            raise ValueError("Code postal invalide")
+            erreurs.append("Code postal invalide")
+
+        # Validation du fournisseur
+        if not all(x.isalnum() or x.isspace() for x in donnees['fournisseur']):
+            erreurs.append("Fournisseur invalide")
+
+        # Validation du tarif
+        try:
+            tarif = float(donnees['tarif'])
+            if tarif <= 0:
+                erreurs.append("Tarif invalide")
+        except ValueError:
+            erreurs.append("Tarif invalide")
 
         # Validation de la puissance souscrite
         puissance_souscrite = float(donnees['puissance_souscrite'].split()[0])
         if puissance_souscrite <= 0:
-            raise ValueError("Puissance souscrite invalide")
+            erreurs.append("Puissance souscrite invalide")
 
-        return donnees
+        # Validation du type de compteur
+        if not all(x.isalnum() or x.isspace() for x in donnees['type_compteur']):
+            erreurs.append("Type de compteur invalide")
+        
+        return erreurs
 
 class FiltreNormalisation(Filtre):
     """Filtre de normalisation des données"""
@@ -113,29 +150,17 @@ class Pipeline:
         self.filtres = filtres
 
     def traiter(self, donnees):
+        erreurs = []
         for filtre in self.filtres:
-            donnees = filtre.traiter(donnees)
+            if filtre.__class__.__name__ == "FiltreValidation":
+                result = filtre.traiter(donnees)
+                if isinstance(result, list):  # Si le résultat est une liste d'erreurs
+                    erreurs.extend(result)
+                    for erreur in erreurs:
+                        print("-", erreur)
+                    return None
+            else:
+                donnees= filtre.traiter(donnees)
         return donnees
-
-
-# Lire les données CSV
-df = pd.read_csv('Pipe-Filter/dataset_consommation_energie_algerie.csv')
-
-# Convertir le DataFrame en une liste de dictionnaires
-donnees_brutes = df.to_dict(orient='records')
-
-# Créer une instance du pipeline
-pipeline = Pipeline([
-    FiltreValidation(),
-    FiltreNormalisation(),
-    FiltreTransformation()
-])
-
-# Traiter chaque donnée brute
-donnees_traitees = [pipeline.traiter(donnees) for donnees in donnees_brutes]
-
-# Convertir les données traitées en DataFrame
-df_traite = pd.DataFrame(donnees_traitees)
-
-# Sauvegarder le DataFrame traité en CSV
-df_traite.to_csv('Pipe-Filter/dataset_consommation_energie_algerie_traite.csv', index=False)
+    
+        
