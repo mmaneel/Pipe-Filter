@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 import re
-import logging
-import time
+import pandas as pd
+import numpy as np
 
 class Filtre(ABC):
     """Interface de base pour les filtres"""
@@ -206,9 +206,13 @@ class Pipeline:
             if isinstance(filtre, FiltreValidation):
                 result, anomaly = filtre.traiter(donnees)
                 if isinstance(result, list):  # Si le résultat est une liste d'erreurs
-                    erreurs.extend(result)
-                if isinstance(anomaly, list):  # Si le résultat est une liste d'anomalies
-                    anomalies.extend(anomaly)
+                    if result == [] : 
+                        pass 
+                    else : 
+                        erreurs.extend(result)
+                        for erreur in erreurs:
+                            print("-", erreur)
+                        return None
             else:
                 donnees = filtre.traiter(donnees)
 
@@ -222,44 +226,36 @@ class Pipeline:
             return None
 
         return donnees
+    
+        
 
 
-# Configuration du logging pour afficher les avertissements dans la console
-logging.basicConfig(level=logging.WARNING)
+# # Lire les données CSV
+# df = pd.read_csv('Pipe-Filter/dataset_consommation_energie_algerie.csv')
 
-# Création des filtres
-filtre_validation = FiltreValidation()
-filtre_normalisation = FiltreNormalisation()
-filtre_transformation = FiltreTransformation()
-filtre_securite = FiltreSecurite()
+# # Convertir le DataFrame en une liste de dictionnaires
+# donnees_brutes = df.to_dict(orient='records')
 
-# Création du pipeline avec les filtres
-pipeline = Pipeline([filtre_validation, filtre_normalisation, filtre_transformation, filtre_securite])
+# # Diviser les données en deux parties de taille égale
+# donnees_parts = np.array_split(donnees_brutes, 2)
+# donnees_part1, donnees_part2 = donnees_parts
 
-# Exemple de données
-exemple_donnees = {
-    'compteur_id': '123456',
-    'timestamp': '2024-05-24T12:00:00',
-    'consommation': '5000 Wh',
-    'type_client': 'residentiel',
-    'wilaya': 'Alger',
-    'ville': 'Alger',
-    'localisation': '36.7538,3.0588',
-    'region': 'Centre',
-    'code_postal': '16000',
-    'fournisseur': 'Electricite Algerie',
-    'tarif': '0.20',
-    'puissance_souscrite': '10 kW',
-    'type_compteur': 'Electronique'
-}
+# # Créer deux instances du pipeline
+# pipeline1 = Pipeline([FiltreValidation(), FiltreNormalisation(), FiltreTransformation()])
+# pipeline2 = Pipeline([FiltreValidation(), FiltreNormalisation(), FiltreTransformation()])
 
-# Traitement des données par le pipeline
-resultat = pipeline.traiter(exemple_donnees)
+# # Traiter chaque partie des données brutes avec un pipeline distinct
+# donnees_traitees_part1 = [pipeline1.traiter(donnees) for donnees in donnees_part1]
+# donnees_traitees_part2 = [pipeline2.traiter(donnees) for donnees in donnees_part2]
 
-# Affichage du résultat final
-if resultat is not None:
-    print("Données traitées avec succès :")
-    for cle, valeur in resultat.items():
-        print(f"{cle}: {valeur}")
-else:
-    print("Échec du traitement des données.")
+# # Combiner les deux parties traitées
+# donnees_traitees = donnees_traitees_part1 + donnees_traitees_part2
+
+# # Filtrer les résultats pour enlever les entrées traitées sans erreurs (None)
+# donnees_traitees = [donnees for donnees in donnees_traitees if donnees is not None]
+
+# # Convertir les données traitées en DataFrame
+# df_traite = pd.DataFrame(donnees_traitees)
+
+# # Sauvegarder le DataFrame traité en CSV
+# df_traite.to_csv('Pipe-Filter/dataset_consommation_energie_algerie_traite.csv', index=False)
