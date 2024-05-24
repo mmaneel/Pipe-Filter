@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 import re
 
+
 class Filtre(ABC):
     """Interface de base pour les filtres"""
     @abstractmethod
@@ -9,13 +10,15 @@ class Filtre(ABC):
         """Méthode à implémenter pour traiter les données"""
         pass
 
+
+
 class FiltreValidation(Filtre):
     """Filtre de validation des données"""
     def traiter(self, donnees):
         erreurs = []
 
         # Validation de l'ID du compteur
-        if not re.match(r'^\d{6}$', donnees['compteur_id']):
+        if not re.match(r'^\d{6}$', str(donnees['compteur_id'])):
             erreurs.append("ID de compteur invalide")
 
         # Validation de l'horodatage
@@ -39,11 +42,11 @@ class FiltreValidation(Filtre):
             erreurs.append("Wilaya invalide")
 
         # Validation de la ville
-        if not donnees['ville'].isalpha():
+        if not all(x.isalpha() or x.isspace() or x in ['"', "'"] for x in donnees['ville']):
             erreurs.append("Ville invalide")
 
         # Validation de la localisation (latitude, longitude)
-        localisation_pattern = r'^\d{1,3}\.\d{4,},\d{1,3}\.\d{4,}$'
+        localisation_pattern = r'^-?\d+\.\d+,-?\d+\.\d+$'
         if not re.match(localisation_pattern, donnees['localisation']):
             erreurs.append("Localisation invalide")
 
@@ -52,7 +55,7 @@ class FiltreValidation(Filtre):
             erreurs.append("Région invalide")
 
         # Validation du code postal
-        if not re.match(r'^\d{5}$', donnees['code_postal']):
+        if not re.match(r'^\d{5}$', str(donnees['code_postal'])):
             erreurs.append("Code postal invalide")
 
         # Validation du fournisseur
@@ -75,8 +78,71 @@ class FiltreValidation(Filtre):
         # Validation du type de compteur
         if not all(x.isalnum() or x.isspace() for x in donnees['type_compteur']):
             erreurs.append("Type de compteur invalide")
-
+        
         return erreurs
+
+class FiltreNormalisation(Filtre):
+    """Filtre de normalisation des données"""
+    def traiter(self, donnees):
+        # Conversion de l'unité de consommation en kWh
+        consommation, unite = donnees['consommation'].split()
+        consommation = float(consommation)
+        if unite == 'Wh':
+            consommation /= 1000
+        donnees['consommation'] = f"{consommation:.5f} kWh"
+
+        # Normalisation du type de client
+        donnees['type_client'] = donnees['type_client'].capitalize()
+
+        # Normalisation de la wilaya et de la ville
+        donnees['wilaya'] = donnees['wilaya'].upper()
+        donnees['ville'] = donnees['ville'].upper()
+
+        # Normalisation du fournisseur
+        donnees['fournisseur'] = donnees['fournisseur'].replace(' ', '_').upper()
+
+        # Conversion de la puissance souscrite en float
+        puissance_souscrite = float(donnees['puissance_souscrite'].split()[0])
+        donnees['puissance_souscrite'] = puissance_souscrite
+
+        # Conversion du code postal en int
+        donnees['code_postal'] = int(donnees['code_postal'])
+
+        # Conversion du tarif en float
+        donnees['tarif'] = float(donnees['tarif'])
+
+        return donnees
+
+
+"""
+Puisque les données sont reçues 3 fois par jour, 
+il serait plus pertinent de calculer la consommation quotidienne en multipliant la consommation par 8 
+(8 heures entre chaque lecture) au lieu de 24. 
+"""
+
+
+class FiltreTransformation(Filtre):
+    """Filtre de transformation des données"""
+    def traiter(self, donnees):
+        # Calcul de la consommation pour 8 heures
+        consommation_kwh = float(donnees['consommation'].split()[0])
+        consommation_8h = consommation_kwh * 8
+        donnees['consommation_8h'] = f"{consommation_8h:.5f} kWh"
+
+        # Catégorisation des clients selon la consommation
+        if consommation_kwh < 1.67:
+            donnees['categorie_client'] = 'Faible consommation'
+        elif consommation_kwh < 6.67:
+            donnees['categorie_client'] = 'Consommation moyenne'
+        else:
+            donnees['categorie_client'] = 'Forte consommation'
+
+        # Ajout du ratio consommation/puissance souscrite
+        puissance_souscrite = donnees['puissance_souscrite']
+        ratio = consommation_kwh / puissance_souscrite
+        donnees['ratio_consommation'] = ratio
+
+        return donnees
 
 class Pipeline:
     """Pipeline de filtres"""
@@ -86,36 +152,15 @@ class Pipeline:
     def traiter(self, donnees):
         erreurs = []
         for filtre in self.filtres:
-            result = filtre.traiter(donnees)
-            if isinstance(result, list):  # Si le résultat est une liste d'erreurs
-                erreurs.extend(result)  # Ajouter les erreurs à la liste
-        return erreurs
-
-# Exemple d'utilisation
-donnees_brutes = {
-    'compteur_id': '123456',
-    'timestamp': '2023-05-24 08:00:00',
-    'consommation': '1.234 kWh',
-    'type_client': 'Residentiel',
-    'wilaya': 'Alger',
-    'ville': 'Alger',
-    'localisation': '36.7538,3.0588',
-    'region': 'Nord',
-    'code_postal': '16000',
-    'fournisseur': 'Énergie Plus',
-    'tarif': '0.12',
-    'puissance_souscrite': '5 kW',
-    'type_compteur': 'Smart Meter Gen 3'
-}
-
-pipeline = Pipeline([
-    FiltreValidation(),
-])
-
-erreurs = pipeline.traiter(donnees_brutes)
-if erreurs:
-    print("Erreurs de validation:")
-    for erreur in erreurs:
-        print("-", erreur)
-else:
-    print("Aucune erreur de validation détectée.")
+            if filtre.__class__.__name__ == "FiltreValidation":
+                result = filtre.traiter(donnees)
+                if isinstance(result, list):  # Si le résultat est une liste d'erreurs
+                    erreurs.extend(result)
+                    for erreur in erreurs:
+                        print("-", erreur)
+                    return None
+            else:
+                donnees= filtre.traiter(donnees)
+        return donnees
+    
+        
