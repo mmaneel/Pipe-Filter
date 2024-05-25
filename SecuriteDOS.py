@@ -91,8 +91,9 @@ class FiltreValidation(Filtre):
             anomalies.append("Tentative d'injection avec tarif")
 
         # Validation de la puissance souscrite
+        puissance_souscrite_str = str(donnees['puissance_souscrite'])  # Convertir en chaîne de caractères
         try:
-            puissance_souscrite = float(donnees['puissance_souscrite'].split()[0])
+            puissance_souscrite = float(puissance_souscrite_str.split()[0])
             if puissance_souscrite <= 0:
                 erreurs.append("Puissance souscrite invalide")
         except ValueError:
@@ -228,6 +229,7 @@ filtre_normalisation = FiltreNormalisation()
 filtre_transformation = FiltreTransformation()
 filtre_securite = FiltreSecurite()
 
+#
 # Création du pipeline
 pipeline = Pipeline([filtre_validation, filtre_normalisation, filtre_transformation, filtre_securite])
 
@@ -251,3 +253,11 @@ donnees = {
 # Traitement des données via le pipeline
 donnees_traitees = pipeline.traiter(donnees)
 print(donnees_traitees)
+
+# Simulation d'une attaque DoS
+def simuler_attaque_dos():
+    for _ in range(1100):
+        pipeline.traiter(donnees)
+
+# Lancement de la simulation
+simuler_attaque_dos()

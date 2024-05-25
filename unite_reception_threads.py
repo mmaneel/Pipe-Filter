@@ -9,7 +9,7 @@ def traiter_partie(pipeline, donnees_part, output_queue):
     output_queue.put([pipeline.traiter(donnees) for donnees in donnees_part])
 
 # Lire les données CSV
-df = pd.read_csv('Pipe-Filter/dataset_consommation_energie_algerie.csv')
+df = pd.read_csv('dataset_consommation_energie_algerie.csv')
 
 # Convertir le DataFrame en une liste de dictionnaires
 donnees_brutes = df.to_dict(orient='records')
@@ -27,6 +27,7 @@ queue1 = Queue()
 queue2 = Queue()
 
 # Créer les threads pour traiter chaque partie des données
+
 thread1 = Thread(target=traiter_partie, args=(pipeline1, donnees_part1, queue1))
 thread2 = Thread(target=traiter_partie, args=(pipeline2, donnees_part2, queue2))
 
@@ -52,4 +53,4 @@ donnees_traitees = [donnees for donnees in donnees_traitees if donnees is not No
 df_traite = pd.DataFrame(donnees_traitees)
 
 # Sauvegarder le DataFrame traité en CSV
-df_traite.to_csv('Pipe-Filter/dataset_consommation_energie_algerie_traite.csv', index=False)
+df_traite.to_csv('dataset_consommation_energie_algerie_traite.csv', index=False)
