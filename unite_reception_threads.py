@@ -58,5 +58,5 @@ while True :
         # Test
         # Sauvegarder le DataFrame traité en CSV
         df_traite.to_csv('Pipe-Filter/dataset_traite.csv', index=False)
-        break 
+        break
     
