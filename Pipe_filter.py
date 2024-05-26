@@ -3,19 +3,22 @@ from datetime import datetime
 import re
 import logging
 import time
+import pandas as pd
 
 class Filtre(ABC):
     """Interface de base pour les filtres"""
     @abstractmethod
-    def traiter(self, donnees):
+    def traiter(self, donnees, etape):
         """Méthode à implémenter pour traiter les données"""
         pass
 
-
+    def enregistrer_donnees(self, donnees, etape):
+        df = pd.DataFrame([donnees])
+        df.to_csv(f'donnees_apres_{etape}.csv', index=False)
 
 class FiltreValidation(Filtre):
     """Filtre de validation des données"""
-    def traiter(self, donnees):
+    def traiter(self, donnees, etape):
         erreurs = []
 
         # Validation de l'ID du compteur
@@ -79,12 +82,16 @@ class FiltreValidation(Filtre):
         # Validation du type de compteur
         if not all(x.isalnum() or x.isspace() for x in donnees['type_compteur']):
             erreurs.append("Type de compteur invalide")
-        
+
+        #print("Données après validation:", donnees)    
+        # Enregistrer les données après le traitement
+        self.enregistrer_donnees(donnees, etape)
+
         return erreurs
 
 class FiltreNormalisation(Filtre):
     """Filtre de normalisation des données"""
-    def traiter(self, donnees):
+    def traiter(self, donnees, etape):
         # Conversion de l'unité de consommation en kWh
         consommation, unite = donnees['consommation'].split()
         consommation = float(consommation)
@@ -111,20 +118,16 @@ class FiltreNormalisation(Filtre):
 
         # Conversion du tarif en float
         donnees['tarif'] = float(donnees['tarif'])
+        
+        print("Données après normalisation:", donnees)
+        # Enregistrer les données après le traitement
+        self.enregistrer_donnees(donnees, etape)
 
         return donnees
 
-
-"""
-Puisque les données sont reçues 3 fois par jour, 
-il serait plus pertinent de calculer la consommation quotidienne en multipliant la consommation par 8 
-(8 heures entre chaque lecture) au lieu de 24. 
-"""
-
-
 class FiltreTransformation(Filtre):
     """Filtre de transformation des données"""
-    def traiter(self, donnees):
+    def traiter(self, donnees, etape):
         # Calcul de la consommation pour 8 heures
         consommation_kwh = float(donnees['consommation'].split()[0])
         consommation_8h = consommation_kwh * 8
@@ -143,8 +146,11 @@ class FiltreTransformation(Filtre):
         ratio = consommation_kwh / puissance_souscrite
         donnees['ratio_consommation'] = ratio
 
+        print("Données après transformation:", donnees)
+        # Enregistrer les données après le traitement
+        self.enregistrer_donnees(donnees, etape)
+
         return donnees
-    
 
 class FiltreSecurite(Filtre):
     """Filtre combiné pour la sécurité"""
@@ -152,7 +158,7 @@ class FiltreSecurite(Filtre):
         self.traffic_count = 0
         self.start_time = time.time()
 
-    def traiter(self, donnees):
+    def traiter(self, donnees, etape):
         # Détection d'attaques DoS
         self.traffic_count += 1
         current_time = time.time()
@@ -173,13 +179,11 @@ class FiltreSecurite(Filtre):
         if delai_transmission > 1000:  # Seuil de retard suspect
             logging.warning(f"Retard de message detecte : {delai_transmission} secondes")
 
-        # Limitation de l'exposition
-        # donnees['compteur_id'] = 'XXXXXX'
-        # donnees['fournisseur'] = 'XXXXXX'
-        # donnees['type_compteur'] = 'XXXXXX'
+        print("Données après transformation:", donnees)
+        # Enregistrer les données après le traitement
+        self.enregistrer_donnees(donnees, etape)
 
         return donnees
-    
 
 class Pipeline:
     """Pipeline de filtres"""
@@ -188,9 +192,10 @@ class Pipeline:
 
     def traiter(self, donnees):
         erreurs = []
-        for filtre in self.filtres:
+        for i, filtre in enumerate(self.filtres):
+            etape = f"etape_{i+1}_{filtre.__class__.__name__}"
             if filtre.__class__.__name__ == "FiltreValidation":
-                result = filtre.traiter(donnees)
+                result = filtre.traiter(donnees, etape)
                 if isinstance(result, list):  # Si le résultat est une liste d'erreurs
                     if result == [] : 
                         pass 
@@ -200,7 +205,7 @@ class Pipeline:
                             print("-", erreur)
                         return None
             else:
-                donnees= filtre.traiter(donnees)
+                donnees = filtre.traiter(donnees, etape)
         return donnees
     
         

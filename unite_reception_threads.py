@@ -11,9 +11,9 @@ def traiter_partie(pipeline, donnees_part, output_queue):
 
 # Vérifier si le fichier dataset.csv existe dans le répertoire courant
 while True : 
-    if os.path.exists('Pipe-Filter/dataset.csv'):
+    if os.path.exists('dataset.csv'):
         # Lire les données CSV
-        df = pd.read_csv('Pipe-Filter/dataset.csv')
+        df = pd.read_csv('dataset.csv')
 
         # Convertir le DataFrame en une liste de dictionnaires
         donnees_brutes = df.to_dict(orient='records')
@@ -57,6 +57,6 @@ while True :
 
         # Test
         # Sauvegarder le DataFrame traité en CSV
-        df_traite.to_csv('Pipe-Filter/dataset_traite.csv', index=False)
+        df_traite.to_csv('dataset_traite.csv', index=False)
         break 
     

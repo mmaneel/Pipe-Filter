@@ -1,2 +1,2 @@
 compteur_id,timestamp,consommation,type_client,wilaya,ville,localisation,region,code_postal,fournisseur,tarif,puissance_souscrite,type_compteur
-123456,2024-05-24 04:08:39,45.313 Wh,Industriel,Alger,Oued Smar,"36.7,3.1833",Est,16270,Energy Plus,0.14,12 kW,Smart Meter Gen 1
+123456,2024-05-24 04:08:39,0.04531 kWh,Industriel,ALGER,OUED SMAR,"36.7,3.1833",Est,16270,ENERGY_PLUS,0.14,12.0,Smart Meter Gen 1
