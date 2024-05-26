@@ -106,3 +106,4 @@ compteur_id,timestamp,consommation,type_client,wilaya,ville,localisation,region,
 789012,2024-05-25 04:23:39,66.832 kWh,Commercial,Alger,El Harrach,"36.7146,3.1319",Centre,16200,Power Algeria,0.14,6 kW,Smart Meter Gen 2
 789012,2024-05-25 04:38:39,52.001 kWh,Commercial,Oran,Aïn Turk,"35.7435,-0.7695",Sud,31300,Sonelgaz,0.12,12 kW,Smart Meter Gen 3
 987654,2024-05-25 04:53:39,29.03 kWh,Residentiel,Alger,Bab Ezzouar,"36.7268,3.1829",Nord,16024,Sonelgaz,0.14,3 kW,Smart Meter Gen 1
+ 

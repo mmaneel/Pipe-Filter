@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 import re
-import pandas as pd
-import numpy as np
+import logging
+import time
 
 class Filtre(ABC):
     """Interface de base pour les filtres"""
@@ -144,6 +144,42 @@ class FiltreTransformation(Filtre):
         donnees['ratio_consommation'] = ratio
 
         return donnees
+    
+
+class FiltreSecurite(Filtre):
+    """Filtre combiné pour la sécurité"""
+    def __init__(self):
+        self.traffic_count = 0
+        self.start_time = time.time()
+
+    def traiter(self, donnees):
+        # Détection d'attaques DoS
+        self.traffic_count += 1
+        current_time = time.time()
+        elapsed_time = current_time - self.start_time
+
+        if elapsed_time < 60:  # Surveillance sur une période de 60 secondes
+            if self.traffic_count > 100:  # Seuil de trafic suspect
+                logging.warning("Attaque DoS detectee : trafic anormalement eleve")
+        else:
+            self.traffic_count = 0
+            self.start_time = current_time
+
+        # Détection de retard de message
+        timestamp_envoi = datetime.fromisoformat(donnees['timestamp'])
+        timestamp_reception = datetime.now()
+        delai_transmission = (timestamp_reception - timestamp_envoi).total_seconds()
+
+        if delai_transmission > 1000:  # Seuil de retard suspect
+            logging.warning(f"Retard de message detecte : {delai_transmission} secondes")
+
+        # Limitation de l'exposition
+        # donnees['compteur_id'] = 'XXXXXX'
+        # donnees['fournisseur'] = 'XXXXXX'
+        # donnees['type_compteur'] = 'XXXXXX'
+
+        return donnees
+    
 
 class Pipeline:
     """Pipeline de filtres"""
@@ -168,34 +204,6 @@ class Pipeline:
         return donnees
     
         
+# Configuration du logging pour afficher les avertissements dans la console
+logging.basicConfig(level=logging.WARNING)
 
-
-# # Lire les données CSV
-# df = pd.read_csv('Pipe-Filter/dataset_consommation_energie_algerie.csv')
-
-# # Convertir le DataFrame en une liste de dictionnaires
-# donnees_brutes = df.to_dict(orient='records')
-
-# # Diviser les données en deux parties de taille égale
-# donnees_parts = np.array_split(donnees_brutes, 2)
-# donnees_part1, donnees_part2 = donnees_parts
-
-# # Créer deux instances du pipeline
-# pipeline1 = Pipeline([FiltreValidation(), FiltreNormalisation(), FiltreTransformation()])
-# pipeline2 = Pipeline([FiltreValidation(), FiltreNormalisation(), FiltreTransformation()])
-
-# # Traiter chaque partie des données brutes avec un pipeline distinct
-# donnees_traitees_part1 = [pipeline1.traiter(donnees) for donnees in donnees_part1]
-# donnees_traitees_part2 = [pipeline2.traiter(donnees) for donnees in donnees_part2]
-
-# # Combiner les deux parties traitées
-# donnees_traitees = donnees_traitees_part1 + donnees_traitees_part2
-
-# # Filtrer les résultats pour enlever les entrées traitées sans erreurs (None)
-# donnees_traitees = [donnees for donnees in donnees_traitees if donnees is not None]
-
-# # Convertir les données traitées en DataFrame
-# df_traite = pd.DataFrame(donnees_traitees)
-
-# # Sauvegarder le DataFrame traité en CSV
-# df_traite.to_csv('Pipe-Filter/dataset_consommation_energie_algerie_traite.csv', index=False)
