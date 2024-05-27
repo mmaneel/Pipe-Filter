@@ -92,6 +92,6 @@ data = generate_data(num_entries)
 df = pd.DataFrame(data)
 
 # Sauvegarder le dataset en CSV
-df.to_csv('Pipe-Filter/dataset_consommation_energie_algerie.csv', index=False)
+df.to_csv('Pipe-Filter/dataset.csv', index=False)
 
-print("Dataset généré et sauvegardé sous 'dataset_consommation_energie_algerie.csv'")
+print("Dataset généré et sauvegardé sous 'dataset.csv'")

@@ -18,6 +18,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
             break
         data.extend(packet)
     # Enregistrer les données reçues dans un fichier
-    with open('Pipe-Filter/dataset.csv', 'wb') as fichier:
+    with open('dataset.csv', 'wb') as fichier:
         fichier.write(data)
     print("Données reçues et enregistrées dans 'data_recues.csv'")
